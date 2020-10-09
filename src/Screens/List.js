@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import ListItems from '../Component/ListItem'
 import Button from '../Component/Button'
+import { connect } from 'react-redux';
+
+import { getList } from '../actions'
 
 
 const List = (props) => {
@@ -19,20 +22,7 @@ const List = (props) => {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    Axios({
-      method: 'get',
-      url: 'https://kodluyoruzrn55.herokuapp.com/api/characters',
-      headers: {
-        authorization: 'Bearer '.concat('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzdiMzA3ODQxZGEwMDAxNzlhYWRkYyIsImlhdCI6MTYwMTAzNjMxMSwiZXhwIjoxNjAxMjA5MTExfQ.NceDgS4FMk3xWDTs45hU2KZXr6x98NYYAUP03zuuJCg')
-      }
-    }).then((response) => {
-      console.log('Gelen GET Başarılı: => ', response.data);
-      setData(response.data.characters.slice(0,8))
-    }).catch((err) => {
-      console.log('Gelen GET Hatalı: => ', err);
-      Alert.alert('UYARI', 'İstek sırasında bir sorun oluştu!')
-    })
-
+    props.getList()
   }, [])
 
 
@@ -46,7 +36,7 @@ const List = (props) => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
-          data={data}
+          data={props.characters}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           initialNumToRender={5}
@@ -71,4 +61,17 @@ const styles = {
 };
 
 
-export default List;
+const mapStateToProps = ({ charactersResponse }) => {
+  const { 
+    loadingCharacter,
+    characters
+   } = charactersResponse;
+  console.log('Gelen Değerler: ', characters, loadingCharacter);
+
+  return { 
+    loadingCharacter,
+    characters
+   };
+};
+
+export default connect(mapStateToProps, { getList } )(List);
