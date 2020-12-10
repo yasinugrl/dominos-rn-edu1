@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "151236356609",
+    "firebase_url": "https://domino-s-education.firebaseio.com",
+    "project_id": "domino-s-education",
+    "storage_bucket": "domino-s-education.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151236356609:android:bf20b73f2be8d03568ee00",
+        "android_client_info": {
+          "package_name": "com.dominosEducation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151236356609-6pr8l86iaqmj4kbbn82qdmeos5c9obml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiNy1Pmy2UugG-36174ZA2rU9eN99RSl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151236356609-6pr8l86iaqmj4kbbn82qdmeos5c9obml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151236356609-ru9968aas7rhqdftv2uo9m6jp5sm0l6j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dominosEducation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

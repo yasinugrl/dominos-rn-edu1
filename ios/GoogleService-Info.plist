@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>151236356609-ru9968aas7rhqdftv2uo9m6jp5sm0l6j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.151236356609-ru9968aas7rhqdftv2uo9m6jp5sm0l6j</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCi6ZLVBWtwUk8P4NOzAIcA7xKvQvAo7No</string>
+	<key>GCM_SENDER_ID</key>
+	<string>151236356609</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.dominosEducation</string>
+	<key>PROJECT_ID</key>
+	<string>domino-s-education</string>
+	<key>STORAGE_BUCKET</key>
+	<string>domino-s-education.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:151236356609:ios:814d3bc6783e887c68ee00</string>
+	<key>DATABASE_URL</key>
+	<string>https://domino-s-education.firebaseio.com</string>
+</dict>
+</plist>
