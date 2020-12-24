@@ -7,6 +7,10 @@ export const LOGIN_START = 'login_start';
 export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAILD = 'login_faild';
 
+export const LOGOUT_START = 'logout_start';
+export const LOGOUT_SUCCESS = 'logout_success';
+export const LOGOUT_FAILD = 'logout_faild';
+
 
 export const GET_USER_START = 'get_user_start';
 export const GET_USER_SUCCESS = 'get_user_success';

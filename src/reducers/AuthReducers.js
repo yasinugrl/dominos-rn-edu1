@@ -3,6 +3,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILD,
 
+    LOGOUT_SUCCESS,
+
     REGISTER_START,
     REGISTER_SUCCESS,
     REGISTER_FAILD,
@@ -41,7 +43,7 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
             };
 
-        case SIGN_OUT_SUCCESS:
+        case LOGOUT_SUCCESS:
             return {
                 ...state,
                 user: null,

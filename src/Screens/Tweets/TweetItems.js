@@ -26,7 +26,6 @@ const TweetItems = (props) => {
         )
     }
 
-
     const { fav, retweet, comment, tweet, user, uid } = props.data;
 
 
@@ -44,13 +43,12 @@ const TweetItems = (props) => {
                             onPress={() => { }}>
                             <Image
                                 source={{ uri: user.profile_url }}
-
                                 style={{ width: 40, height: 40 }}
                                 resizeMode={'cover'}
                             />
                         </TouchableOpacity>
                         :
-                        <Icon name={'user-circle'} />
+                        <Icon type='FontAwesome' name={'user-circle'} />
                 }
             </View>
 
@@ -64,13 +62,10 @@ const TweetItems = (props) => {
                         <Image source={{ uri: tweet.image }} style={{ width: '100%', height: 150 }} resizeMode='cover' />
                     </View>
                 }
-
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingRight: 100, marginTop: 10 }}>
                     {iconSection(true, 'comment', comment, () => { })}
                     {iconSection(true, 'retweet', retweet, () => { })}
-                    {iconSection(true, 'heart', fav, () => {
-
-                    })}
+                    {iconSection(true, 'heart', fav, () => { })}
                     {iconSection(false, 'share-square', [])}
                 </View>
             </View>

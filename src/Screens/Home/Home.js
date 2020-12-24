@@ -1,22 +1,15 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { Fab, Icon } from 'native-base';
 import { colors } from '../../style';
-// import crashlytics from '@react-native-firebase/crashlytics';
 import { getTweets } from '../../actions'
 import TweetItems from '../Tweets/TweetItems';
-// import PushController from '../../PushController';
 
 const Home = (props) => {
 
     useEffect(() => {
         props.getTweets()
-
-        // const notif = new PushController();
-        // notif.configure((token) => {
-        //     console.log('Gelen Token Değeri', token);
-        // })
     }, [])
 
     return (
@@ -34,27 +27,17 @@ const Home = (props) => {
                 }
             />
 
-
             <Fab
                 containerStyle={{}}
                 style={{ backgroundColor: colors.main }}
                 position="bottomRight"
-                onPress={() => { 
-                    props.navigation.navigate('AddTweet') 
-                    }}>
+                onPress={() => {  }}>
                 <Icon name="pencil" type='FontAwesome' style={{ color: 'white' }} />
             </Fab>
 
         </View>
     );
 }
-
-const styles = {
-    text: { padding: 3 }
-}
-
-
-
 
 const mapStateToProps = ({ tweetResponse }) => {
     const { loading, tweets } = tweetResponse;

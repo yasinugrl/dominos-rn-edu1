@@ -20,9 +20,7 @@ import { colors } from '../../style';
 const Login = (props) => {
     const [email, setEmail] = useState('test@test.com')
     const [password, setPassword] = useState('123456')
-
     const animation = useRef(new Animated.Value(0)).current;
-
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
@@ -62,7 +60,6 @@ const Login = (props) => {
             <View style={{ flex: 9 }}>
                 <ScrollView style={{ padding: 20 }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 20, width: '70%', marginBottom: 20, textAlign: 'left', }}>Twitter'a giriş yap</Text>
-
                     <Input
                         placeholder={'Telefoni e-posta veya kullanıcı adı'}
                         value={email}
@@ -76,7 +73,6 @@ const Login = (props) => {
                         value={password}
                         onChangeText={(password) => setPassword(password)}
                     />
-
                 </ScrollView>
             </View>
 

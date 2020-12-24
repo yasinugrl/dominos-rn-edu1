@@ -5,19 +5,18 @@ import { connect } from 'react-redux';
 import { Fab, Icon } from 'native-base';
 import { colors } from '../../style';
 
-import { getRooms } from '../../actions'
+import { getRooms, logout } from '../../actions'
 
 import MessageItems from './MessageItems';
 import { USER } from '../../actions/types';
 
 const Messages = (props) => {
 
-    useEffect(() => {
-        props.getRooms()
-        console.log('Gelen props.', USER.notif);
-
-        USER.notif ? props.navigation.navigate('MessageDetail', { data: { path: USER.notif.path } } ) : null
-    }, [])
+    // useEffect(() => {
+    //     // props.getRooms()
+    //     console.log('Gelen props.', USER.notif);
+    //     USER.notif ? props.navigation.navigate('MessageDetail', { data: { path: USER.notif.path } } ) : null
+    // }, [])
 
     return (
         <View style={{ flex: 1 }}>
@@ -47,7 +46,9 @@ const Messages = (props) => {
                 containerStyle={{}}
                 style={{ backgroundColor: colors.main }}
                 position="bottomRight"
-                onPress={() => { props.navigation.navigate('GetUsers') }}>
+                onPress={() => { 
+                    props.logout()
+                 }}>
                 <Icon name="plus" type='FontAwesome' style={{ color: 'white' }} />
             </Fab>
 
@@ -67,4 +68,4 @@ const mapStateToProps = ({ messageResponse }) => {
     return { loadingGetRoom, rooms };
 };
 
-export default connect(mapStateToProps, { getRooms })(Messages);
+export default connect(mapStateToProps, { logout })(Messages);

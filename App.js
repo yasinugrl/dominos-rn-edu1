@@ -4,7 +4,7 @@ import Router from './src/Router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-
+console.disableYellowBox = true;
 import reducers from './src/reducers'
 
 

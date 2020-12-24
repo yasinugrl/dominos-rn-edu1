@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Text, View, SafeAreaView, Animated, Keyboard, Image } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
 import { Button, Input } from '../../components';
 import { colors } from '../../style';
 import { Icon } from 'native-base';
@@ -41,42 +40,14 @@ const AddTweet = (props) => {
         }).start();
     };
 
-    console.log('Gelen: ', props.user.username);
+    console.log('Gelen User: ', props.user);
 
     const selectImage = () => {
-
-        const options = {
-            title: 'Profil Fotoğrafı Seçiniz',
-            quality: 0.2,
-            takePhotoButtonTitle: 'Resim Çek',
-            chooseFromLibraryButtonTitle: 'Galeriden Seç',
-            cancelButtonTitle: 'Kapat',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-
-        ImagePicker.showImagePicker(options, async (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const uri = response.uri;
-                setImage(uri)
-            }
-        });
 
     }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 10 }}>
                 <Text onPress={() => props.navigation.pop()} style={{ color: colors.main, fontSize: 14 }}>Vazgeç</Text>
                 <Button
@@ -90,8 +61,8 @@ const AddTweet = (props) => {
                                 image
                             },
                             user: {
-                                profile_url: props.user.profile_image,
-                                name: props.user.name,
+                                profile_url: '',
+                                name: '',
                                 username: props.user.username
                             },
                             fav: [],
@@ -105,7 +76,6 @@ const AddTweet = (props) => {
             </View>
 
             <View style={{ flex: 12, padding: 10 }}>
-
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Icon name={'user'} type='FontAwesome' size={40} onPress={() => { }} />
 
@@ -129,7 +99,6 @@ const AddTweet = (props) => {
                         </View>
 
                     }
-
             </View>
 
             <Animated.View
@@ -155,7 +124,6 @@ const AddTweet = (props) => {
                 }>
                 <Icon onPress={() => selectImage()} name='image' type='FontAwesome' style={{ color: colors.main }} />
             </Animated.View>
-
         </SafeAreaView>
     )
 }

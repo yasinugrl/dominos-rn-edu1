@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
 import { Input, Button } from '../../components'
 import { Icon } from 'native-base'
-
 import { connect } from 'react-redux';
-import { isUser } from '../../actions'
+import { isAuth } from '../../actions'
 import { colors } from '../../style';
-
-
 
 const FirstScreen = (props) => {
     useEffect(() => {
-    //    props.isUser()
+         props.isAuth()
     }, [])
 
     if(props.loading) {
@@ -55,10 +52,9 @@ const FirstScreen = (props) => {
     )
 }
 
-
 const mapStateToProps = ({ authResponse }) => {
     const { loading, user } = authResponse;
     return { loading, user };
 };
 
-export default connect(mapStateToProps, { isUser })(FirstScreen);
+export default connect(mapStateToProps, { isAuth  })(FirstScreen);

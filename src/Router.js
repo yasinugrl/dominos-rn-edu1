@@ -239,7 +239,6 @@ function Router(props) {
                                     }}
                                 />
                             </>
-
                         ) :
                         (<RootStack.Screen
                             name="Auth"
@@ -257,7 +256,6 @@ function Router(props) {
 
 const mapStateToProps = ({ authResponse }) => {
     const { loading, user } = authResponse;
-    console.log('User Var mı???: ', authResponse);
     return { loading, user };
 };
 

@@ -3,6 +3,11 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILD,
 
+    LOGOUT_START,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILD,
+
+
     REGISTER_START,
     REGISTER_SUCCESS,
     REGISTER_FAILD,
@@ -21,7 +26,6 @@ import firestore from '@react-native-firebase/firestore';
 
 import { Alert } from 'react-native'
 
-
 export const login = (params) => {
     return (dispatch) => {
         if (params.email != '' && params.password != '') {
@@ -31,13 +35,12 @@ export const login = (params) => {
                     .signInWithEmailAndPassword(params.email, params.password)
                     .then((data) => {
                         console.log('signed in!', data);
-                        // const uid = data.user._user.uid;
-                        dispatch({ type: LOGIN_SUCCESS })
+                        const uid = data.user._user.uid;
+                        getUser(uid, dispatch)
                     })
                     .catch(error => {
                         if (error.code === 'auth/invalid-email') {
                             console.log('That email address is invalid!');
-
                         } else if (error.code === 'auth/user-not-found') {
                             console.log('That email address is invalid!');
                             Alert.alert('Uyarı', 'Böyle bir kullanıcı bulunamadı!')
@@ -79,7 +82,7 @@ export const register = (params) => {
                                 RootNavigation.navigate('Login')
                             }).catch((err) => {
                                 console.log('User added Faild!', err);
-                            })  
+                            })
 
                     })
                     .catch(error => {
@@ -88,7 +91,6 @@ export const register = (params) => {
                         }
                         console.log(error);
                     });
-
             } else {
                 Alert.alert('UYARI', 'Lütfen geçerli bir email yazınız!')
             }
@@ -98,48 +100,51 @@ export const register = (params) => {
     }
 }
 
-export const isUser = () => {
+export const isAuth = () => {
     return (dispatch) => {
         dispatch({ type: LOGIN_START })
-        auth().onAuthStateChanged((data) => {
-            if (data) {
-                console.log('Gelen Değer:', data);
-                const uid = data._user.uid;
-                getUser(uid, dispatch)
-            } else {
-                dispatch({ type: LOGIN_FAILD })
-            }
-        });
+        auth()
+            .onAuthStateChanged((user) => {
+                console.log('asdasD: ', user);
+                if (user) {
+                    const uid = user._user.uid
+                    getUser(uid, dispatch)
+                } else {
+                    dispatch({ type: LOGIN_FAILD })
+                }
+
+            })
     }
 }
 
-export const signOut = () => {
+export const logout = () => {
     return (dispatch) => {
+        dispatch({ type: LOGOUT_START })
         auth()
             .signOut()
             .then(() => {
-                dispatch({ type: SIGN_OUT_SUCCESS })
-            });
+                dispatch({ type: LOGOUT_SUCCESS })
+            }).catch(() => {
+                dispatch({ type: LOGOUT_FAILD })
+            })
     }
 }
 
 const getUser = (uid, dispatch) => {
-    // read user from db
-    // firestore()
-    //     .collection('Users')
-    //     .doc(uid)
-    //     .get().then((user) => {
-    //         console.log('Gelen Data: ', user._data);
-    //         const userParams = {
-    //             ...user._data,
-    //             uid
-    //         }
-
-    //         dispatch({ type: LOGIN_SUCCESS, payload: userParams })
-    //     }).catch((err) => {
-    //         console.log('Read Data error: ', err);
-    //         dispatch({ type: LOGIN_FAILD })
-    //     })
+    firestore()
+        .collection('Users')
+        .doc(uid)
+        .get()
+        .then((user) => {
+            const payload = {
+                ...user._data,
+                uid
+            }
+            dispatch({ type: LOGIN_SUCCESS, payload })
+        })
+        .catch((e) => {
+            console.log('Eerroror', e);
+        })
 }
 
 function validateEmail(email) {
