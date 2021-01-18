@@ -31,10 +31,11 @@ const Home = (props) => {
                 containerStyle={{}}
                 style={{ backgroundColor: colors.main }}
                 position="bottomRight"
-                onPress={() => {  }}>
+                onPress={() => { 
+                    props.navigation.navigate('AddTweet')
+                 }}>
                 <Icon name="pencil" type='FontAwesome' style={{ color: 'white' }} />
             </Fab>
-
         </View>
     );
 }

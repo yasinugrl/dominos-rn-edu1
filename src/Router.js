@@ -226,7 +226,7 @@ const RootStack = createStackNavigator();
 function Router(props) {
     return (
         <NavigationContainer ref={navigationRef}>
-            <RootStack.Navigator headerMode='none'>
+            <RootStack.Navigator headerMode='none' mode='modal'>
                 {
                     props.user ?
                         (
@@ -238,6 +238,8 @@ function Router(props) {
                                         animationEnabled: false
                                     }}
                                 />
+
+                                <RootStack.Screen name="AddTweet" component={AddTweet} />
                             </>
                         ) :
                         (<RootStack.Screen

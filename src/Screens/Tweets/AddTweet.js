@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Text, View, SafeAreaView, Animated, Keyboard, Image } from 'react-native';
-import { Button, Input } from '../../components';
+import { Button, FormFooter, Input } from '../../components';
 import { colors } from '../../style';
 import { Icon } from 'native-base';
 import { addTweet } from '../../actions'
@@ -8,37 +8,8 @@ import { addTweet } from '../../actions'
 import { connect } from 'react-redux';
 
 const AddTweet = (props) => {
-
     const [tweet, setTweet] = useState('')
     const [image, setImage] = useState(null)
-
-    const animation = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        Keyboard.addListener("keyboardWillShow", _keyboardWillShow);
-        Keyboard.addListener("keyboardWillHide", _keyboardWillHide);
-
-        return () => {
-            Keyboard.removeListener("keyboardWillShow", _keyboardWillShow);
-            Keyboard.removeListener("keyboardWillHide", _keyboardWillHide);
-        };
-
-    }, []);
-
-    const _keyboardWillShow = (e) => {
-        const height = e.endCoordinates.height
-        Animated.timing(animation, {
-            toValue: -height + 34,
-            duration: 300
-        }).start();
-    };
-
-    const _keyboardWillHide = (e) => {
-        Animated.timing(animation, {
-            toValue: 0,
-            duration: 300
-        }).start();
-    };
 
     console.log('Gelen User: ', props.user);
 
@@ -47,7 +18,9 @@ const AddTweet = (props) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white', }}>
+            
+            
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 10 }}>
                 <Text onPress={() => props.navigation.pop()} style={{ color: colors.main, fontSize: 14 }}>Vazgeç</Text>
                 <Button
@@ -55,21 +28,17 @@ const AddTweet = (props) => {
                     loading={props.loading}
                     textStyle={{ fontSize: 14 }}
                     onPress={() => {
-                        props.addTweet({
+                        
+                        const params = {
                             tweet: {
                                 text: tweet,
-                                image
                             },
-                            user: {
-                                profile_url: '',
-                                name: '',
-                                username: props.user.username
-                            },
-                            fav: [],
-                            retweet: [],
-                            comment: [],
+                            uid: props.user.uid,
                             createdDate: new Date()
-                        })
+                        }
+                        image ? params.tweet.image = image : null
+                        console.log('Giden Data: ', params);
+                        props.addTweet(params)
                     }}
                     style={{ width: '20%', height: 30 }}
                 />
@@ -89,41 +58,27 @@ const AddTweet = (props) => {
                         multiline
                     />
                 </View>
-                {image &&
-                        <View style={{ alignItems: 'center'}}>
-                            <Image
-                                source={{ uri: image }}
-                                style={{ width: '90%', height: '50%' }}
-                                resizeMode='cover'
-                            />
-                        </View>
 
-                    }
+
+                {image &&
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            source={{ uri: image }}
+                            style={{ width: '90%', height: '50%' }}
+                            resizeMode='cover'
+                        />
+                    </View>
+                }
             </View>
 
-            <Animated.View
-                style={
-                    [{
-                        flex: 0.6,
-                        backgroundColor: '#edeeef',
-                        borderTopColor: '#b7b7b7',
-                        borderTopWidth: 0.3,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        padding: 10,
-                        justifyContent: 'space-between'
-                    },
-                    {
-                        transform: [
-                            {
-                                translateY: animation,
-                            }
-                        ]
-                    }
-                    ]
-                }>
-                <Icon onPress={() => selectImage()} name='image' type='FontAwesome' style={{ color: colors.main }} />
-            </Animated.View>
+
+            <FormFooter
+                pageName='addTweet'
+                {...props}
+                onPress={() => selectImage()}
+            />
+
+
         </SafeAreaView>
     )
 }

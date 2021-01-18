@@ -4,7 +4,7 @@ import {
     SafeAreaView, Animated, Keyboard
 } from 'react-native';
 import { Icon } from 'native-base'
-import { Input, Button } from '../../components'
+import { Input, Button, FormFooter } from '../../components'
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { register } from '../../actions'
@@ -23,37 +23,6 @@ const Register = (props) => {
     const [username, setUsername] = useState('test2surname')
     const [email, setEmail] = useState('test2@test.com')
     const [password, setPassword] = useState('123456')
-
-    const animation = useRef(new Animated.Value(0)).current;
-
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        Keyboard.addListener("keyboardWillShow", _keyboardWillShow);
-        Keyboard.addListener("keyboardWillHide", _keyboardWillHide);
-
-        return () => {
-            Keyboard.removeListener("keyboardWillShow", _keyboardWillShow);
-            Keyboard.removeListener("keyboardWillHide", _keyboardWillHide);
-        };
-
-
-    }, []);
-
-    const _keyboardWillShow = (e) => {
-        const height = e.endCoordinates.height
-        Animated.timing(animation, {
-            toValue: -height + 34,
-            duration: 300
-        }).start();
-    };
-
-    const _keyboardWillHide = (e) => {
-        Animated.timing(animation, {
-            toValue: 0,
-            duration: 300
-        }).start();
-    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -102,41 +71,15 @@ const Register = (props) => {
                 </ScrollView>
             </View>
 
-
-
-            <Animated.View
-                style={
-                    [{
-                        flex: 0.6,
-                        backgroundColor: '#edeeef',
-                        borderTopColor: '#b7b7b7',
-                        borderTopWidth: 0.3,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        padding: 10,
-                        justifyContent: 'space-between'
-                    },
-                    {
-                        transform: [
-                            {
-                                translateY: animation,
-                            }
-                        ]
-
-                    }
-                    ]
-                }>
-                <Text style={{ color: colors.main, fontSize: 14 }}>Şifreni mi unuttun?</Text>
-
-                <Button
-                    text={'Kayıt Ol'}
-                    onPress={() => {
-                        const params = { email, password, name, username  }
-                        props.register(params)
-                    }}
-                    style={{ width: '25%', height: 30 }}
-                />
-            </Animated.View>
+            <FormFooter
+                page='register'
+                text='Kayıt Ol'
+                onPress={() => {
+                    const params = { email, password, name, username }
+                    props.register(params)
+                }}
+                {...props}
+            />
 
 
 
@@ -145,7 +88,7 @@ const Register = (props) => {
 }
 
 const styles = {
-   input: {  height: '40%', }
+    input: { height: '40%', }
 }
 
 const mapStateToProps = ({ authResponse }) => {

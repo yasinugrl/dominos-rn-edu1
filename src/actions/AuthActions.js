@@ -105,14 +105,12 @@ export const isAuth = () => {
         dispatch({ type: LOGIN_START })
         auth()
             .onAuthStateChanged((user) => {
-                console.log('asdasD: ', user);
                 if (user) {
                     const uid = user._user.uid
                     getUser(uid, dispatch)
                 } else {
                     dispatch({ type: LOGIN_FAILD })
                 }
-
             })
     }
 }
