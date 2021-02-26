@@ -1,4 +1,4 @@
-package com.first_project_rnc;
+package com.dominosEducation;
 
 import android.app.Application;
 import android.content.Context;

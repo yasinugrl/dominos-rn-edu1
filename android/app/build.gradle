@@ -130,11 +130,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.first_project_rnc"
+        applicationId "com.dominosEducation"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {

@@ -9,6 +9,8 @@ import {
 } from './types'
 import firestore from '@react-native-firebase/firestore';
 import * as RootNavigation from '../RootNavigation';
+
+import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native'
 
 export const getTweets = () => {
@@ -20,7 +22,7 @@ export const getTweets = () => {
             .onSnapshot(tweets => {
                 let data = []
                 tweets._docs.forEach(element => {
-                    const pr ={
+                    const pr = {
                         ...element._data,
                         fav: [],
                         comment: [],
@@ -34,7 +36,7 @@ export const getTweets = () => {
                     data.push(pr)
                 });
                 console.log('Gelen DAta ', data);
-                dispatch({ type: GET_TWEET_SUCCESS, payload: data  });
+                dispatch({ type: GET_TWEET_SUCCESS, payload: data });
 
             })
 
@@ -50,8 +52,25 @@ export const addTweet = (params) => {
             .add(params)
             .then((data) => {
                 console.log('SUCESS addTweet', data);
-                dispatch({ type: ADD_TWEET_SUCCESS })
-                RootNavigation.pop()
+                let tweetId = data.id
+                if (params.tweet.image) {
+                    const reference = storage().ref(`/tweets/${tweetId}`);
+                    reference.putFile(params.tweet.image).then((dt) => {
+                        reference.getDownloadURL().then((imageURL) => {
+                            console.log('GET URL', imageURL);
+                            firestore().collection('Tweets').doc(tweetId).update({ tweet: { image: imageURL, text: params.tweet.text } }).then(() => {
+                                dispatch({ type: ADD_TWEET_SUCCESS })
+                                // RootNavigation.pop()
+                            })
+                        })
+                    }).catch(error => {
+                        console.log('Hatatta Resim Yükleme: ', error);
+                    })
+                } else {
+                    dispatch({ type: ADD_TWEET_SUCCESS })
+                    // RootNavigation.pop()
+                }
+
             })
             .catch(() => {
                 dispatch({ type: ADD_TWEET_FAILD })

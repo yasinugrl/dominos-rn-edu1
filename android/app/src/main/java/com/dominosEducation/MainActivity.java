@@ -1,4 +1,4 @@
-package com.first_project_rnc;
+package com.dominosEducation;
 
 import com.facebook.react.ReactActivity;
 

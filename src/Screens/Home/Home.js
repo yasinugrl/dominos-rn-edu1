@@ -5,10 +5,17 @@ import { Fab, Icon } from 'native-base';
 import { colors } from '../../style';
 import { getTweets } from '../../actions'
 import TweetItems from '../Tweets/TweetItems';
+import PushController from '../../PushController';
+
 
 const Home = (props) => {
 
     useEffect(() => {
+        const notif = new PushController();
+        notif.configure((token) => {
+            console.log('Gelen Token Değeri', token);
+        })
+
         props.getTweets()
     }, [])
 

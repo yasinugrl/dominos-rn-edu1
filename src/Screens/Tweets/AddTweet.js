@@ -5,22 +5,47 @@ import { colors } from '../../style';
 import { Icon } from 'native-base';
 import { addTweet } from '../../actions'
 
+import ImagePicker from 'react-native-image-picker';
+
 import { connect } from 'react-redux';
 
 const AddTweet = (props) => {
     const [tweet, setTweet] = useState('')
     const [image, setImage] = useState(null)
-
-    console.log('Gelen User: ', props.user);
-
     const selectImage = () => {
+
+        const options = {
+            title: 'Profil Fotoğrafı Seçiniz',
+            quality: 0.1,
+            mediaType: 'photo',
+            takePhotoButtonTitle: 'Resim Çek',
+            chooseFromLibraryButtonTitle: 'Galeriden Seç',
+            cancelButtonTitle: 'Kapat',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+
+        ImagePicker.showImagePicker(options, async (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const uri = response.uri;
+                setImage(uri)
+            }
+        });
 
     }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white', }}>
-            
-            
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 10 }}>
                 <Text onPress={() => props.navigation.pop()} style={{ color: colors.main, fontSize: 14 }}>Vazgeç</Text>
                 <Button
@@ -28,7 +53,7 @@ const AddTweet = (props) => {
                     loading={props.loading}
                     textStyle={{ fontSize: 14 }}
                     onPress={() => {
-                        
+                        props.navigation.pop()
                         const params = {
                             tweet: {
                                 text: tweet,

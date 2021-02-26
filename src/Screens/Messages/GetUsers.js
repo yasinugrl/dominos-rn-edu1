@@ -19,7 +19,6 @@ const GetUsers = (props) => {
                 data={props.allUsers}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => {
-                    console.log('Gelen user: ', item);
                     return (
                         <TouchableOpacity
                             onPress={() => {
